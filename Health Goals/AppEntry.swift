@@ -1,5 +1,5 @@
 //
-//  Health_GoalsApp.swift
+//  AppEntry.swift
 //  Health Goals
 //
 //  Created by Jaba Kochashvili on 2/17/24.
@@ -9,10 +9,10 @@ import SwiftUI
 import SwiftData
 
 @main
-struct Health_GoalsApp: App {
+struct AppEntry: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+//            Item.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -25,7 +25,7 @@ struct Health_GoalsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
         }
         .modelContainer(sharedModelContainer)
     }

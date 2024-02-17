@@ -8,11 +8,24 @@
 import SwiftUI
 
 struct MyGoalsView: View {
+    var action: () -> Void
+
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        List {
+         Text("Goals View Coming soon")
+        }
+        .listStyle(.plain)
+        .navigationTitle("My Goals")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: action) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
     }
 }
 
 #Preview {
-    MyGoalsView()
+    MyGoalsView(action: {})
 }
