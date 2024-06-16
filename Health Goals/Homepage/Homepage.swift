@@ -5,10 +5,11 @@
 //  Created by Jaba Kochashvili on 2/18/24.
 
 import SwiftUI
+
 struct Homepage: View {
     @State private var isCreatingNewGoal = false
     @ObservedObject var goalManager = GoalManager()
-
+    
     var body: some View {
         NavigationView {
             VStack {
@@ -16,9 +17,13 @@ struct Homepage: View {
                     EmptyMyGoalsView {
                         isCreatingNewGoal = true
                     }
-                } else {
+                } else if goalManager.areAllGoalsSameFrequency() {
                     MyGoalsView(goalManager: goalManager) {
-                        isCreatingNewGoal = false
+                        isCreatingNewGoal = true
+                    }
+                } else {
+                    GroupedGoalsView(goalManager: goalManager) {
+                        isCreatingNewGoal = true
                     }
                 }
             }
@@ -28,6 +33,7 @@ struct Homepage: View {
         }
     }
 }
+
 
 
 struct Homepage_Previews: PreviewProvider {

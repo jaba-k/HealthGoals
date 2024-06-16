@@ -16,6 +16,7 @@
 		44A1F4DF2B81696B008E58CC /* MyGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */; };
 		44A1F4E12B8169DF008E58CC /* CreateNewGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */; };
 		44BDEC1D2BC15C180033542B /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BDEC1C2BC15C180033542B /* GoalView.swift */; };
+		44C6BD702C1F3F100057911C /* GroupedGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C6BD6F2C1F3F100057911C /* GroupedGoalsView.swift */; };
 		44E5670F2B83D85900CC4B86 /* UserGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5670E2B83D85900CC4B86 /* UserGoal.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoalsView.swift; sourceTree = "<group>"; };
 		44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGoal.swift; sourceTree = "<group>"; };
 		44BDEC1C2BC15C180033542B /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		44C6BD6F2C1F3F100057911C /* GroupedGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedGoalsView.swift; sourceTree = "<group>"; };
 		44E5670E2B83D85900CC4B86 /* UserGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -91,6 +93,7 @@
 				44A1F4DA2B815D8E008E58CC /* Homepage.swift */,
 				44A1F4DC2B816887008E58CC /* EmptyMyGoalsView.swift */,
 				44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */,
+				44C6BD6F2C1F3F100057911C /* GroupedGoalsView.swift */,
 			);
 			path = Homepage;
 			sourceTree = "<group>";
@@ -186,6 +189,7 @@
 				44A1F4DF2B81696B008E58CC /* MyGoalsView.swift in Sources */,
 				44A1F4E12B8169DF008E58CC /* CreateNewGoal.swift in Sources */,
 				44A1F4C52B813BAB008E58CC /* AppEntry.swift in Sources */,
+				44C6BD702C1F3F100057911C /* GroupedGoalsView.swift in Sources */,
 				44A1F4DB2B815D8E008E58CC /* Homepage.swift in Sources */,
 				44A1F4DD2B816887008E58CC /* EmptyMyGoalsView.swift in Sources */,
 				44BDEC1D2BC15C180033542B /* GoalView.swift in Sources */,

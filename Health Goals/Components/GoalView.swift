@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct GoalView: View {
-    var icon: String
-    var color: Color
-    var title: String
-    var goalValue: Int
-    var goalUnit: String
-    var progressValue: Double
+    @ObservedObject var goalManager: GoalManager
+    var userGoal: UserGoal
+    @State private var progressValue: Double = 0.0
+    @State private var icon: String = "questionmark"
+    @State private var color: Color = .gray
+    @State private var goalValue: Int = 0
+    @State private var goalUnit: String = ""
 
     private var formattedPercentage: String {
-        "\(Int((progressValue / Double(goalValue) * 100).rounded()))%"
+        let percentage = goalValue == 0 ? 0 : (progressValue / Double(goalValue)) * 100
+        return "\(Int(percentage.rounded()))%"
     }
 
     private var formattedProgressValue: String {
@@ -28,7 +30,7 @@ struct GoalView: View {
             HStack(spacing: 6) {
                 Image(systemName: icon)
                     .foregroundColor(color)
-                Text(title)
+                Text(userGoal.goalType.name)
                     .font(.headline)
                     .foregroundColor(color)
                 
@@ -51,11 +53,23 @@ struct GoalView: View {
         .padding()
         .background(Color(.secondarySystemBackground))
         .cornerRadius(12)
+        .onAppear {
+            fetchGoalDetails()
+        }
     }
-}
 
-struct GoalView_Previews: PreviewProvider {
-    static var previews: some View {
-        GoalView(icon: "flame.fill", color: .red, title: "Daily Steps", goalValue: 10000, goalUnit: "steps", progressValue: 7500)
+    private func fetchGoalDetails() {
+        if let category = categories.first(where: { $0.id == userGoal.categoryId }) {
+            icon = category.icon
+            color = category.color
+        }
+        goalValue = Int(userGoal.goal ?? 0)
+        goalUnit = userGoal.goalType.HKUnit.unitString
+
+        goalManager.fetchHealthData(identifier: userGoal.goalType.HKQuantityTypeIdentifier, unit: userGoal.goalType.HKUnit, frequency: userGoal.frequency) { result in
+            DispatchQueue.main.async {
+                progressValue = result
+            }
+        }
     }
 }

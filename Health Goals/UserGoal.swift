@@ -33,13 +33,9 @@ class GoalManager: ObservableObject {
       
     
     func setUserGoal(for categoryId: CategoryId, goalType: GoalType, goal: Double, frequency: GoalFrequency) {
-        if let index = userGoals.firstIndex(where: { $0.categoryId == categoryId && $0.goalType.id == goalType.id }) {
-            let updatedGoal = UserGoal(categoryId: categoryId, goalType: goalType, goal: goal, frequency: frequency)
-            userGoals[index] = updatedGoal
-        } else {
             let newUserGoal = UserGoal(categoryId: categoryId, goalType: goalType, goal: goal, frequency: frequency)
             userGoals.append(newUserGoal)
-        }
+        
     }
 
     func getUserGoal(for categoryId: CategoryId, goalType: GoalType) -> Double? {
@@ -55,6 +51,24 @@ class GoalManager: ObservableObject {
             completion(status == .unnecessary)
         }
     }
+    
+    func deleteGoal(by id: UUID) {
+           userGoals.removeAll { $0.id == id }
+       }
+    
+    func areAllGoalsSameFrequency() -> Bool {
+          guard !userGoals.isEmpty else { return true }
+          let firstFrequency = userGoals.first?.frequency
+          return userGoals.allSatisfy { $0.frequency == firstFrequency }
+      }
+
+      func groupedGoalsByFrequency() -> [GoalFrequency: [UserGoal]] {
+          var groupedGoals = [GoalFrequency: [UserGoal]]()
+          for goal in userGoals {
+              groupedGoals[goal.frequency, default: []].append(goal)
+          }
+          return groupedGoals
+      }
 
     func requestHealthKitPermission(for goalType: GoalType, completion: @escaping (Bool) -> Void) {
         guard let quantityType = HKQuantityType.quantityType(forIdentifier: goalType.HKQuantityTypeIdentifier) else {
