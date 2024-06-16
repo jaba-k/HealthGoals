@@ -9,28 +9,6 @@ import SwiftUI
 import Foundation
 import HealthKit
 
-struct CreateNewGoal: View {
-    let goalManager: GoalManager
-    
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(categories, id: \.name) { category in
-                    Section(header: CategoryHeader(category: category)) {
-                        ForEach(category.goals, id: \.name) { item in
-                            NavigationLink(destination: CreateGoal(goalManager: goalManager, goal: item)) {
-                                Text(item.name)
-                            }
-                        }
-                    }
-                }
-            }
-                        .navigationTitle("Available Goals")
-            .headerProminence(.increased)
-        }
-    }
-}
-
 struct CategoryHeader: View {
     let category: Category
 
@@ -44,45 +22,71 @@ struct CategoryHeader: View {
     }
 }
 
+struct CreateNewGoal: View {
+    @Binding var isSheetPresented: Bool
+    let goalManager: GoalManager
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(categories, id: \.name) { category in
+                    Section(header: CategoryHeader(category: category)) {
+                        ForEach(category.goals, id: \.name) { item in
+                            NavigationLink(destination: CreateGoal(goalManager: goalManager, goal: item, isSheetPresented: $isSheetPresented)) {
+                                Text(item.name)
+                            }
+                        }
+                    }
+                }
+            }
+                        .navigationTitle("Available Goals")
+            .headerProminence(.increased)
+        }
+    }
+}
+
+
 struct CreateGoal: View {
     let goalManager: GoalManager
     let goal: GoalType
-      @State private var selectedFrequency: GoalFrequency
-      @State private var goalValue: Double = 0
-      @State private var hasPermission: Bool = false
-      @Environment(\.presentationMode) var presentationMode
+    @Binding var isSheetPresented: Bool
 
-    init(goalManager: GoalManager, goal: GoalType) {
-          self.goalManager = goalManager
-          self.goal = goal
+    @State private var selectedFrequency: GoalFrequency
+    @State private var goalValue: Double = 0
+    @State private var hasPermission: Bool = false
+    @Environment(\.presentationMode) var presentationMode
+
+    init(goalManager: GoalManager, goal: GoalType, isSheetPresented: Binding<Bool>) {
+        self.goalManager = goalManager
+        self.goal = goal
+        self._isSheetPresented = isSheetPresented
         _selectedFrequency = State(initialValue: goal.frequency)
-      }
-
+    }
 
     var body: some View {
         Form {
-            if selectedFrequency != .continuous { // Hide frequency section if .continuous
-                           Section(header: Text("Frequency")) {
-                               Picker("Frequency", selection: $selectedFrequency) {
-                                   ForEach(GoalFrequency.allCases.filter { $0 != .continuous }, id: \.self) { frequency in
-                                       Text(frequency.rawValue.capitalized)
-                                   }
-                               }
-                               .pickerStyle(.segmented)
-                           }
-                       }
+            if selectedFrequency != .continuous {
+                Section(header: Text("Frequency")) {
+                    Picker("Frequency", selection: $selectedFrequency) {
+                        ForEach(GoalFrequency.allCases.filter { $0 != .continuous }, id: \.self) { frequency in
+                            Text(frequency.rawValue.capitalized)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+            }
             Section(header: Text("Goal")) {
                 TextField("Enter your goal", value: $goalValue, format: .number)
                     .keyboardType(.decimalPad)
             }
-            
+
             Section {
                 if hasPermission {
                     Text("HealthKit permission granted")
                         .foregroundColor(.green)
                 } else {
                     VStack {
-                        Text("access not granted")
+                        Text("Access not granted")
                             .foregroundColor(.red)
                         Button("Grant HealthKit Permission") {
                             requestPermission()
@@ -90,10 +94,10 @@ struct CreateGoal: View {
                     }
                 }
             }
-            
+
             Button("Set Goal") {
                 goalManager.setUserGoal(for: goal.categoryId, goalType: goal, goal: goalValue, frequency: selectedFrequency)
-                presentationMode.wrappedValue.dismiss()
+                isSheetPresented = false
             }
             .disabled(!hasPermission)
         }
@@ -102,7 +106,7 @@ struct CreateGoal: View {
             checkPermission()
         }
     }
-    
+
     private func checkPermission() {
         goalManager.checkHealthKitPermission(for: goal) { granted in
             DispatchQueue.main.async {
@@ -121,6 +125,3 @@ struct CreateGoal: View {
 }
 
 
-#Preview {
-    CreateNewGoal(goalManager: GoalManager())
-}

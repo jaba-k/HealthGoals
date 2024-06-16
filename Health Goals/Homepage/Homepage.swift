@@ -7,6 +7,7 @@
 import SwiftUI
 
 struct Homepage: View {
+    @State private var isSheetPresented = false
     @State private var isCreatingNewGoal = false
     @ObservedObject var goalManager = GoalManager()
     
@@ -15,20 +16,20 @@ struct Homepage: View {
             VStack {
                 if goalManager.userGoals.isEmpty {
                     EmptyMyGoalsView {
-                        isCreatingNewGoal = true
+                        isSheetPresented = true
                     }
                 } else if goalManager.areAllGoalsSameFrequency() {
                     MyGoalsView(goalManager: goalManager) {
-                        isCreatingNewGoal = true
+                        isSheetPresented = true
                     }
                 } else {
                     GroupedGoalsView(goalManager: goalManager) {
-                        isCreatingNewGoal = true
+                        isSheetPresented = true
                     }
                 }
             }
-            .sheet(isPresented: $isCreatingNewGoal) {
-                CreateNewGoal(goalManager: goalManager)
+            .sheet(isPresented: $isSheetPresented) {
+                CreateNewGoal(isSheetPresented: $isSheetPresented, goalManager: goalManager)
             }
         }
     }

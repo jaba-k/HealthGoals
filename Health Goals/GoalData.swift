@@ -46,7 +46,7 @@ let categories: [Category] = [
 //    ]),
     
     Category(id: .nutrition, name: "Nutrition", icon: "leaf.fill", color: .green, goals: [
-        GoalType(name: "Dietary Energy", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryEnergyConsumed, HKUnit: .smallCalorie()),
+        GoalType(name: "Dietary Energy", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryEnergyConsumed, HKUnit: .largeCalorie()),
         GoalType(name: "Protein", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryProtein, HKUnit: .gram()),
         GoalType(name: "Carbs", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryCarbohydrates, HKUnit: .gram()),
         GoalType(name: "Total Fat", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryFatTotal, HKUnit: .gram()),

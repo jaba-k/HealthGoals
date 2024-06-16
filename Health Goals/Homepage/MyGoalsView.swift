@@ -16,6 +16,7 @@ struct MyGoalsView: View {
         List {
             ForEach(goalManager.userGoals) { userGoal in
                 GoalView(goalManager: goalManager, userGoal: userGoal)
+                    .listRowSeparator(.hidden)
             }
             .onDelete { indexSet in
                 for index in indexSet {

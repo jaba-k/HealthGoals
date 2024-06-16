@@ -19,6 +19,8 @@ struct GroupedGoalsView: View {
                     Section(header: Text(frequency.rawValue.capitalized)) {
                         ForEach(goals) { userGoal in
                             GoalView(goalManager: goalManager, userGoal: userGoal)
+                                .listRowSeparator(.hidden)
+
                         }
                         .onDelete { indexSet in
                             for index in indexSet {
