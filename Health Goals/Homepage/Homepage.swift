@@ -5,55 +5,30 @@
 //  Created by Jaba Kochashvili on 2/18/24.
 
 import SwiftUI
-
-struct Goal: Identifiable {
-    let id = UUID()
-    let name: String
-    let icon: String
-    let color: Color
-    let items: [QuantityType]
-}
-
-
 struct Homepage: View {
-    @StateObject private var viewModel = HomepageViewModel()
     @State private var isCreatingNewGoal = false
+    @ObservedObject var goalManager = GoalManager()
 
     var body: some View {
         NavigationView {
             VStack {
-                if viewModel.goals.isEmpty {
+                if goalManager.userGoals.isEmpty {
                     EmptyMyGoalsView {
                         isCreatingNewGoal = true
                     }
                 } else {
-                    MyGoalsView {
-                        isCreatingNewGoal = true
+                    MyGoalsView(goalManager: goalManager) {
+                        isCreatingNewGoal = false
                     }
                 }
             }
             .sheet(isPresented: $isCreatingNewGoal) {
-                CreateNewGoal()
+                CreateNewGoal(goalManager: goalManager)
             }
         }
-        .onAppear {
-            viewModel.fetchGoals()
-        }
     }
 }
 
-
-
-
-class HomepageViewModel: ObservableObject {
-    @Published var showAddGoalView = false
-    @Published var goals = [Goal]()
-    
-    func fetchGoals() {
-        // Fetch goals from a data source
-        goals = []
-    }
-}
 
 struct Homepage_Previews: PreviewProvider {
     static var previews: some View {

@@ -11,24 +11,27 @@
 		44A1F4CB2B813BAD008E58CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44A1F4CA2B813BAD008E58CC /* Assets.xcassets */; };
 		44A1F4CE2B813BAD008E58CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44A1F4CD2B813BAD008E58CC /* Preview Assets.xcassets */; };
 		44A1F4D72B814394008E58CC /* GoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4D62B814394008E58CC /* GoalData.swift */; };
-		44A1F4D92B814CCB008E58CC /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4D82B814CCB008E58CC /* MainView.swift */; };
 		44A1F4DB2B815D8E008E58CC /* Homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DA2B815D8E008E58CC /* Homepage.swift */; };
 		44A1F4DD2B816887008E58CC /* EmptyMyGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DC2B816887008E58CC /* EmptyMyGoalsView.swift */; };
 		44A1F4DF2B81696B008E58CC /* MyGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */; };
 		44A1F4E12B8169DF008E58CC /* CreateNewGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */; };
+		44BDEC1D2BC15C180033542B /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BDEC1C2BC15C180033542B /* GoalView.swift */; };
+		44E5670F2B83D85900CC4B86 /* UserGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5670E2B83D85900CC4B86 /* UserGoal.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4404BB582C1EE3BB00285CF2 /* Health Goals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Health Goals.entitlements"; sourceTree = "<group>"; };
 		44A1F4C12B813BAB008E58CC /* Health Goals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Goals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44A1F4C42B813BAB008E58CC /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
 		44A1F4CA2B813BAD008E58CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		44A1F4CD2B813BAD008E58CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44A1F4D62B814394008E58CC /* GoalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalData.swift; sourceTree = "<group>"; };
-		44A1F4D82B814CCB008E58CC /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		44A1F4DA2B815D8E008E58CC /* Homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homepage.swift; sourceTree = "<group>"; };
 		44A1F4DC2B816887008E58CC /* EmptyMyGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMyGoalsView.swift; sourceTree = "<group>"; };
 		44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoalsView.swift; sourceTree = "<group>"; };
 		44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGoal.swift; sourceTree = "<group>"; };
+		44BDEC1C2BC15C180033542B /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
+		44E5670E2B83D85900CC4B86 /* UserGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoal.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,11 +64,13 @@
 		44A1F4C32B813BAB008E58CC /* Health Goals */ = {
 			isa = PBXGroup;
 			children = (
+				4404BB582C1EE3BB00285CF2 /* Health Goals.entitlements */,
+				44BDEC1B2BC15BEA0033542B /* Components */,
 				44A1F4D52B813C9A008E58CC /* CreateNewGoal */,
 				44A1F4D42B813C86008E58CC /* Homepage */,
 				44A1F4C42B813BAB008E58CC /* AppEntry.swift */,
-				44A1F4D82B814CCB008E58CC /* MainView.swift */,
 				44A1F4D62B814394008E58CC /* GoalData.swift */,
+				44E5670E2B83D85900CC4B86 /* UserGoal.swift */,
 				44A1F4CA2B813BAD008E58CC /* Assets.xcassets */,
 				44A1F4CC2B813BAD008E58CC /* Preview Content */,
 			);
@@ -96,6 +101,14 @@
 				44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */,
 			);
 			path = CreateNewGoal;
+			sourceTree = "<group>";
+		};
+		44BDEC1B2BC15BEA0033542B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				44BDEC1C2BC15C180033542B /* GoalView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -169,12 +182,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				44A1F4D72B814394008E58CC /* GoalData.swift in Sources */,
+				44E5670F2B83D85900CC4B86 /* UserGoal.swift in Sources */,
 				44A1F4DF2B81696B008E58CC /* MyGoalsView.swift in Sources */,
 				44A1F4E12B8169DF008E58CC /* CreateNewGoal.swift in Sources */,
-				44A1F4D92B814CCB008E58CC /* MainView.swift in Sources */,
 				44A1F4C52B813BAB008E58CC /* AppEntry.swift in Sources */,
 				44A1F4DB2B815D8E008E58CC /* Homepage.swift in Sources */,
 				44A1F4DD2B816887008E58CC /* EmptyMyGoalsView.swift in Sources */,
+				44BDEC1D2BC15C180033542B /* GoalView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,17 +319,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Health Goals/Health Goals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Health Goals/Preview Content\"";
 				DEVELOPMENT_TEAM = P3PXN4U4LS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This lets us set goals against your health data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = Goals;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -334,17 +353,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "Health Goals/Health Goals.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Health Goals/Preview Content\"";
 				DEVELOPMENT_TEAM = P3PXN4U4LS;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "This lets us set goals against your health data";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = Goals;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

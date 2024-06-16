@@ -25,7 +25,7 @@ struct AppEntry: App {
 
     var body: some Scene {
         WindowGroup {
-            MainView()
+            Homepage()
         }
         .modelContainer(sharedModelContainer)
     }
