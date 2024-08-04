@@ -108,7 +108,7 @@ struct CreateGoal: View {
     }
 
     private func checkPermission() {
-        goalManager.checkHealthKitPermission(for: goal) { granted in
+        goalManager.checkHealthKitPermission(for: HKQuantityTypeIdentifier(rawValue: goal.HKQuantityTypeIdentifierRawValue)) { granted in
             DispatchQueue.main.async {
                 self.hasPermission = granted
             }
@@ -116,7 +116,7 @@ struct CreateGoal: View {
     }
 
     private func requestPermission() {
-        goalManager.requestHealthKitPermission(for: goal) { granted in
+        goalManager.requestHealthKitPermission(for: HKQuantityTypeIdentifier(rawValue: goal.HKQuantityTypeIdentifierRawValue)) { granted in
             DispatchQueue.main.async {
                 self.hasPermission = granted
             }

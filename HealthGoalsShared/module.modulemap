@@ -1,0 +1,5 @@
+framework module HealthGoalsShared {
+  umbrella header "HealthGoalsShared.h"
+  export *
+  module * { export * }
+}

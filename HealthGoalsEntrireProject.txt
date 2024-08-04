@@ -1,0 +1,657 @@
+# Health Goals.entitlements
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>com.apple.developer.healthkit</key>
+	<true/>
+</dict>
+</plist>
+
+
+# GoalManager.swift
+//
+//  GoalManager.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 6/16/24.
+//
+
+import HealthKit
+
+class UserGoal: Identifiable, Codable {
+    let id: UUID
+    let categoryId: CategoryId
+    let goalType: GoalType
+    let goal: Double?
+    let frequency: GoalFrequency
+
+    init(categoryId: CategoryId, goalType: GoalType, goal: Double? = nil, frequency: GoalFrequency) {
+        self.id = UUID()
+        self.categoryId = categoryId
+        self.goalType = goalType
+        self.goal = goal
+        self.frequency = frequency
+    }
+    
+    enum CodingKeys: String, CodingKey {
+           case id, categoryId, goalType, goal, frequency
+       }
+}
+
+class GoalManager: ObservableObject {
+    @Published var userGoals: [UserGoal] = []
+    private let healthStore = HKHealthStore()
+    
+    init() {
+        self.loadUserGoals()
+    }
+
+    private func loadUserGoals() {
+        if let data = UserDefaults.standard.data(forKey: "userGoals"),
+           let decodedGoals = try? JSONDecoder().decode([UserGoal].self, from: data) {
+            self.userGoals = decodedGoals
+        }
+    }
+
+    private func saveUserGoals() {
+        if let encodedData = try? JSONEncoder().encode(userGoals) {
+            UserDefaults.standard.set(encodedData, forKey: "userGoals")
+        }
+    }
+
+    func setUserGoal(for categoryId: CategoryId, goalType: GoalType, goal: Double, frequency: GoalFrequency) {
+        let newUserGoal = UserGoal(categoryId: categoryId, goalType: goalType, goal: goal, frequency: frequency)
+        userGoals.append(newUserGoal)
+        saveUserGoals() // Save after modification
+    }
+
+    func deleteGoal(by id: UUID) {
+        userGoals.removeAll { $0.id == id }
+        saveUserGoals() // Save after modification
+    }
+
+    func getUserGoal(for categoryId: CategoryId, goalType: GoalType) -> Double? {
+        return userGoals.first(where: { $0.categoryId == categoryId && $0.goalType.id == goalType.id })?.goal
+    }
+
+    func checkHealthKitPermission(for identifier: HKQuantityTypeIdentifier, completion: @escaping (Bool) -> Void) {
+        guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier) else {
+            completion(false)
+            return
+        }
+        healthStore.getRequestStatusForAuthorization(toShare: [], read: [quantityType]) { status, _ in
+            completion(status == .unnecessary)
+        }
+    }
+    
+    func areAllGoalsSameFrequency() -> Bool {
+          guard !userGoals.isEmpty else { return true }
+          let firstFrequency = userGoals.first?.frequency
+          return userGoals.allSatisfy { $0.frequency == firstFrequency }
+      }
+
+      func groupedGoalsByFrequency() -> [GoalFrequency: [UserGoal]] {
+          var groupedGoals = [GoalFrequency: [UserGoal]]()
+          for goal in userGoals {
+              groupedGoals[goal.frequency, default: []].append(goal)
+          }
+          return groupedGoals
+      }
+
+    func requestHealthKitPermission(for identifier: HKQuantityTypeIdentifier, completion: @escaping (Bool) -> Void) {
+        guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier) else {
+            completion(false)
+            return
+        }
+        healthStore.requestAuthorization(toShare: [], read: [quantityType]) { success, _ in
+            completion(success)
+        }
+    }
+    
+    func fetchHealthData(identifier: HKQuantityTypeIdentifier, unit: HKUnit, frequency: GoalFrequency, completion: @escaping (Double) -> Void) {
+        guard let quantityType = HKQuantityType.quantityType(forIdentifier: identifier) else {
+            completion(1)
+            return
+        }
+        
+        
+        let now = Date()
+        var interval = DateComponents()
+        var anchorDate: Date?
+        
+        switch frequency {
+        case .daily:
+            interval.day = 1
+            anchorDate = Calendar.current.startOfDay(for: now)
+        case .weekly:
+            interval.day = 7
+            anchorDate = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: now))
+        case .monthly:
+            interval.month = 1
+            anchorDate = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: now))
+        case .continuous:
+            interval.day = 1
+            anchorDate = nil
+        }
+        
+        guard let startDate = anchorDate else {
+            completion(2)
+            return
+        }
+        
+        let query = HKStatisticsCollectionQuery(quantityType: quantityType,
+                                                   quantitySamplePredicate: nil,
+                                                   options: [.cumulativeSum],
+                                                   anchorDate: startDate,
+                                                   intervalComponents: interval)
+           
+           query.initialResultsHandler = { query, results, error in
+               guard let results = results else {
+                   completion(3)
+                   return
+               }
+               
+               var sum = 0.0
+               results.enumerateStatistics(from: startDate, to: now) { statistics, _ in
+                   if let statisticsSum = statistics.sumQuantity() {
+                       sum += statisticsSum.doubleValue(for: unit)
+                   }
+               }
+               completion(sum)
+           }
+        
+        
+        healthStore.execute(query)
+    }
+}
+
+
+# GoalData.swift
+
+//
+//  GoalData.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/17/24.
+//
+import Foundation
+import SwiftUI
+import HealthKit
+
+enum GoalFrequency: String, CaseIterable, Codable {
+    case daily, weekly, monthly, continuous
+}
+
+enum CategoryId: String, Codable {
+    case activity = "activity"
+    case bodyMeasurement = "body_measurement"
+    case nutrition = "nutrition"
+    case vitalSigns = "vital_signs"
+}
+
+struct Category {
+    let id: CategoryId
+    let name: String
+    let icon: String
+    let color: Color
+    let goals: [GoalType]
+}
+
+struct GoalType: Identifiable, Codable {
+    var id = UUID()
+    let name: String
+    let categoryId: CategoryId
+    let frequency: GoalFrequency
+    let HKQuantityTypeIdentifierRawValue: String
+    let HKUnitString: String
+}
+
+
+let categories: [Category] = [
+    Category(id: .activity, name: "Activity", icon: "flame.fill", color: .tomato, goals: [
+        GoalType(name: "Steps", categoryId: .activity, frequency: .daily, HKQuantityTypeIdentifierRawValue: HKQuantityTypeIdentifier.stepCount.rawValue, HKUnitString: HKUnit.count().unitString),
+        GoalType(name: "Active Energy", categoryId: .activity, frequency: .daily, HKQuantityTypeIdentifierRawValue: HKQuantityTypeIdentifier.activeEnergyBurned.rawValue, HKUnitString: HKUnit.largeCalorie().unitString),
+//        GoalType(name: "Resting Energy", categoryId: .activity, frequency: .daily, HKQuantityTypeIdentifier: .basalEnergyBurned, HKUnit: .smallCalorie()),
+    ]),
+    
+//    Category(id: .bodyMeasurement, name: "Body Measurements", icon: "figure.mixed.cardio", color: .purple, goals: [
+//        GoalType(name: "Weight", categoryId: .bodyMeasurement, frequency: .continuous, HKQuantityTypeIdentifier: .bodyMass, HKUnit: .gramUnit(with: .kilo)),
+//        GoalType(name: "Body Fat", categoryId: .bodyMeasurement, frequency: .continuous, HKQuantityTypeIdentifier: .bodyFatPercentage, HKUnit: .percent()),
+//    ]),
+    
+//    Category(id: .nutrition, name: "Nutrition", icon: "leaf.fill", color: .green, goals: [
+//        GoalType(name: "Dietary Energy", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryEnergyConsumed, HKUnit: .largeCalorie()),
+//        GoalType(name: "Protein", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryProtein, HKUnit: .gram()),
+//        GoalType(name: "Carbs", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryCarbohydrates, HKUnit: .gram()),
+//        GoalType(name: "Total Fat", categoryId: .nutrition, frequency: .daily, HKQuantityTypeIdentifier: .dietaryFatTotal, HKUnit: .gram()),
+//    ]),
+    
+//    Category(id: .vitalSigns, name: "Vital Signs", icon: "heart.fill", color: .red, goals: [
+//        GoalType(name: "Respiratory Rate", categoryId: .vitalSigns, frequency: .continuous, HKQuantityTypeIdentifier: .respiratoryRate, HKUnit: .count().unitDivided(by: .minute())),
+//        GoalType(name: "Resting Heart Rate", categoryId: .vitalSigns, frequency: .continuous, HKQuantityTypeIdentifier: .restingHeartRate, HKUnit: .count().unitDivided(by: .minute())),
+//    ]),
+]
+
+
+# Goal.swift
+
+//
+//  Goal.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/19/24.
+//
+
+import Foundation
+
+# AppEntry.swift
+
+//
+//  AppEntry.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/17/24.
+//
+
+import SwiftUI
+
+@main
+struct AppEntry: App {
+    var body: some Scene {
+        WindowGroup {
+            Homepage()
+        }
+    }
+}
+
+# Homepage/Homepage.swift
+
+//
+//  Homepage.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/18/24.
+
+import SwiftUI
+
+struct Homepage: View {
+    @State private var isSheetPresented = false
+    @ObservedObject private var goalManager = GoalManager()
+
+    var body: some View {
+        NavigationView {
+            VStack {
+                if goalManager.userGoals.isEmpty {
+                    EmptyMyGoalsView {
+                        isSheetPresented = true
+                    }
+                } else if goalManager.areAllGoalsSameFrequency() {
+                    MyGoalsView(goalManager: goalManager) {
+                        isSheetPresented = true
+                    }
+                } else {
+                    GroupedGoalsView(goalManager: goalManager) {
+                        isSheetPresented = true
+                    }
+                }
+            }
+            .sheet(isPresented: $isSheetPresented) {
+                CreateNewGoal(isSheetPresented: $isSheetPresented, goalManager: goalManager)
+            }
+        }
+    }
+}
+
+struct Homepage_Previews: PreviewProvider {
+    static var previews: some View {
+        Homepage()
+    }
+}
+
+# Homepage/MyGoalsView.swift
+
+//
+//  MyGoalsView.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/18/24.
+//
+import SwiftUI
+import HealthKit
+
+struct MyGoalsView: View {
+    @ObservedObject var goalManager: GoalManager
+    var action: () -> Void
+    @State private var editMode = EditMode.inactive
+
+    var body: some View {
+        List {
+            ForEach(goalManager.userGoals) { userGoal in
+                GoalView(goalManager: goalManager, userGoal: userGoal)
+                    .listRowSeparator(.hidden)
+            }
+            .onDelete { indexSet in
+                for index in indexSet {
+                    let goal = goalManager.userGoals[index]
+                    goalManager.deleteGoal(by: goal.id)
+                }
+            }
+        }
+        .listStyle(.plain)
+        .navigationTitle("My Goals")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: action) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .environment(\.editMode, $editMode)
+    }
+}
+
+# Homepage/GroupedGoalsView.swift
+
+//
+//  GroupedGoalsView.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 6/16/24.
+//
+
+import SwiftUI
+
+struct GroupedGoalsView: View {
+    @ObservedObject var goalManager: GoalManager
+    @State private var editMode = EditMode.inactive
+    var action: () -> Void
+
+    var body: some View {
+        List {
+            ForEach(GoalFrequency.allCases, id: \.self) { frequency in
+                if let goals = goalManager.groupedGoalsByFrequency()[frequency], !goals.isEmpty {
+                    Section(header: Text(frequency.rawValue.capitalized)) {
+                        ForEach(goals) { userGoal in
+                            GoalView(goalManager: goalManager, userGoal: userGoal)
+                                .listRowSeparator(.hidden)
+
+                        }
+                        .onDelete { indexSet in
+                            for index in indexSet {
+                                let goal = goals[index]
+                                goalManager.deleteGoal(by: goal.id)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .listStyle(.plain)
+        .navigationTitle("My Goals")
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: action) {
+                    Image(systemName: "plus")
+                }
+            }
+        }
+        .environment(\.editMode, $editMode)
+    }
+}
+
+# Homepage/EmptyMyGoalsView.swift
+//
+//  EmptyGoalsView.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/18/24.
+//
+
+import SwiftUI
+
+struct EmptyMyGoalsView: View {
+    var action: () -> Void
+
+    var body: some View {
+        VStack {
+            Spacer()
+            VStack {
+                Image(systemName: "plus.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: 100, height: 100)
+                Text("Tap here to start")
+                    .foregroundColor(.primary)
+                    .font(.headline)
+                    .padding()
+            }
+            Spacer()
+        }
+        .edgesIgnoringSafeArea(.all)
+        .onTapGesture {
+            action()
+        }
+        .navigationTitle("My Goals")
+    }
+}
+
+#Preview {
+    EmptyMyGoalsView(action: {})
+}
+
+# CreateNewGoal/CreateNewGoal.swift
+//
+//  CreateNewGoal.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 2/18/24.
+//
+
+import SwiftUI
+import Foundation
+import HealthKit
+
+struct CategoryHeader: View {
+    let category: Category
+
+    var body: some View {
+        HStack {
+            Image(systemName: category.icon)
+                .foregroundColor(category.color)
+            Text(category.name)
+                .font(.headline)
+        }
+    }
+}
+
+struct CreateNewGoal: View {
+    @Binding var isSheetPresented: Bool
+    let goalManager: GoalManager
+    
+    var body: some View {
+        NavigationView {
+            List {
+                ForEach(categories, id: \.name) { category in
+                    Section(header: CategoryHeader(category: category)) {
+                        ForEach(category.goals, id: \.name) { item in
+                            NavigationLink(destination: CreateGoal(goalManager: goalManager, goal: item, isSheetPresented: $isSheetPresented)) {
+                                Text(item.name)
+                            }
+                        }
+                    }
+                }
+            }
+                        .navigationTitle("Available Goals")
+            .headerProminence(.increased)
+        }
+    }
+}
+
+
+struct CreateGoal: View {
+    let goalManager: GoalManager
+    let goal: GoalType
+    @Binding var isSheetPresented: Bool
+
+    @State private var selectedFrequency: GoalFrequency
+    @State private var goalValue: Double = 0
+    @State private var hasPermission: Bool = false
+    @Environment(\.presentationMode) var presentationMode
+
+    init(goalManager: GoalManager, goal: GoalType, isSheetPresented: Binding<Bool>) {
+        self.goalManager = goalManager
+        self.goal = goal
+        self._isSheetPresented = isSheetPresented
+        _selectedFrequency = State(initialValue: goal.frequency)
+    }
+
+    var body: some View {
+        Form {
+            if selectedFrequency != .continuous {
+                Section(header: Text("Frequency")) {
+                    Picker("Frequency", selection: $selectedFrequency) {
+                        ForEach(GoalFrequency.allCases.filter { $0 != .continuous }, id: \.self) { frequency in
+                            Text(frequency.rawValue.capitalized)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                }
+            }
+            Section(header: Text("Goal")) {
+                TextField("Enter your goal", value: $goalValue, format: .number)
+                    .keyboardType(.decimalPad)
+            }
+
+            Section {
+                if hasPermission {
+                    Text("HealthKit permission granted")
+                        .foregroundColor(.green)
+                } else {
+                    VStack {
+                        Text("Access not granted")
+                            .foregroundColor(.red)
+                        Button("Grant HealthKit Permission") {
+                            requestPermission()
+                        }
+                    }
+                }
+            }
+
+            Button("Set Goal") {
+                goalManager.setUserGoal(for: goal.categoryId, goalType: goal, goal: goalValue, frequency: selectedFrequency)
+                isSheetPresented = false
+            }
+            .disabled(!hasPermission)
+        }
+        .navigationTitle(goal.name)
+        .onAppear {
+            checkPermission()
+        }
+    }
+
+    private func checkPermission() {
+        goalManager.checkHealthKitPermission(for: HKQuantityTypeIdentifier(rawValue: goal.HKQuantityTypeIdentifierRawValue)) { granted in
+            DispatchQueue.main.async {
+                self.hasPermission = granted
+            }
+        }
+    }
+
+    private func requestPermission() {
+        goalManager.requestHealthKitPermission(for: HKQuantityTypeIdentifier(rawValue: goal.HKQuantityTypeIdentifierRawValue)) { granted in
+            DispatchQueue.main.async {
+                self.hasPermission = granted
+            }
+        }
+    }
+}
+
+
+
+# Components/GoalView.swift
+//
+//  GoalView.swift
+//  Health Goals
+//
+//  Created by Jaba Kochashvili on 4/6/24.
+//
+
+import SwiftUI
+import HealthKit
+
+struct GoalView: View {
+    @ObservedObject var goalManager: GoalManager
+    var userGoal: UserGoal
+    @State private var progressValue: Double = 0.0
+    @State private var icon: String = "questionmark"
+    @State private var color: Color = .gray
+    @State private var goalValue: Int = 0
+    @State private var goalUnit: String = ""
+
+    private var formattedPercentage: String {
+        let percentage = goalValue == 0 ? 0 : (progressValue / Double(goalValue)) * 100
+        return "\(Int(percentage.rounded()))%"
+    }
+
+    private var formattedProgressValue: String {
+        "\(Int(progressValue.rounded()))"
+    }
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 6) {
+                Image(systemName: icon)
+                    .foregroundColor(color)
+                Text(userGoal.goalType.name)
+                    .font(.headline)
+                    .foregroundColor(color)
+                
+                Spacer()
+                
+                Text(formattedPercentage)
+                    .font(.callout)
+                    .foregroundColor(.secondary)
+            }
+            
+            HStack(alignment: .firstTextBaseline, spacing: 0) {
+                Text(formattedProgressValue)
+                    .font(.system(size: 20, weight: .semibold, design: .rounded))
+                Text(" / \(goalValue) \(goalUnit)")
+                    .font(.headline)
+                    .foregroundColor(.secondary)
+                    .contentTransition(.numericText())
+                
+                Spacer()
+            }
+        }
+        .padding()
+        .background(Color(.secondarySystemBackground))
+        .cornerRadius(12)
+        .onAppear {
+            fetchGoalDetails()
+        }
+    }
+
+    private func fetchGoalDetails() {
+        if let category = categories.first(where: { $0.id == userGoal.categoryId }) {
+            icon = category.icon
+            color = category.color
+        }
+        goalValue = Int(userGoal.goal ?? 0)
+        goalUnit = HKUnit(from: userGoal.goalType.HKUnitString).unitString
+
+        goalManager.fetchHealthData(identifier: HKQuantityTypeIdentifier(rawValue: userGoal.goalType.HKQuantityTypeIdentifierRawValue), unit: HKUnit(from: userGoal.goalType.HKUnitString), frequency: userGoal.frequency) { result in
+            DispatchQueue.main.async {
+                progressValue = result
+            }
+        }
+    }
+}

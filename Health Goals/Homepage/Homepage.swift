@@ -8,9 +8,8 @@ import SwiftUI
 
 struct Homepage: View {
     @State private var isSheetPresented = false
-    @State private var isCreatingNewGoal = false
-    @ObservedObject var goalManager = GoalManager()
-    
+    @ObservedObject private var goalManager = GoalManager()
+
     var body: some View {
         NavigationView {
             VStack {
@@ -34,8 +33,6 @@ struct Homepage: View {
         }
     }
 }
-
-
 
 struct Homepage_Previews: PreviewProvider {
     static var previews: some View {

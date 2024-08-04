@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import HealthKit
 
 struct GoalView: View {
     @ObservedObject var goalManager: GoalManager
@@ -47,6 +48,8 @@ struct GoalView: View {
                 Text(" / \(goalValue) \(goalUnit)")
                     .font(.headline)
                     .foregroundColor(.secondary)
+                    .contentTransition(.numericText())
+                
                 Spacer()
             }
         }
@@ -64,9 +67,9 @@ struct GoalView: View {
             color = category.color
         }
         goalValue = Int(userGoal.goal ?? 0)
-        goalUnit = userGoal.goalType.HKUnit.unitString
+        goalUnit = HKUnit(from: userGoal.goalType.HKUnitString).unitString
 
-        goalManager.fetchHealthData(identifier: userGoal.goalType.HKQuantityTypeIdentifier, unit: userGoal.goalType.HKUnit, frequency: userGoal.frequency) { result in
+        goalManager.fetchHealthData(identifier: HKQuantityTypeIdentifier(rawValue: userGoal.goalType.HKQuantityTypeIdentifierRawValue), unit: HKUnit(from: userGoal.goalType.HKUnitString), frequency: userGoal.frequency) { result in
             DispatchQueue.main.async {
                 progressValue = result
             }

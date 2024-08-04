@@ -3,41 +3,152 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		44A1F4C52B813BAB008E58CC /* AppEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4C42B813BAB008E58CC /* AppEntry.swift */; };
-		44A1F4CB2B813BAD008E58CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44A1F4CA2B813BAD008E58CC /* Assets.xcassets */; };
-		44A1F4CE2B813BAD008E58CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44A1F4CD2B813BAD008E58CC /* Preview Assets.xcassets */; };
-		44A1F4D72B814394008E58CC /* GoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4D62B814394008E58CC /* GoalData.swift */; };
-		44A1F4DB2B815D8E008E58CC /* Homepage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DA2B815D8E008E58CC /* Homepage.swift */; };
-		44A1F4DD2B816887008E58CC /* EmptyMyGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DC2B816887008E58CC /* EmptyMyGoalsView.swift */; };
-		44A1F4DF2B81696B008E58CC /* MyGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */; };
-		44A1F4E12B8169DF008E58CC /* CreateNewGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */; };
-		44BDEC1D2BC15C180033542B /* GoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44BDEC1C2BC15C180033542B /* GoalView.swift */; };
-		44C6BD702C1F3F100057911C /* GroupedGoalsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C6BD6F2C1F3F100057911C /* GroupedGoalsView.swift */; };
-		44E5670F2B83D85900CC4B86 /* UserGoal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E5670E2B83D85900CC4B86 /* UserGoal.swift */; };
+		441BBFE42C5F9A910078CEC7 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441BBFE32C5F9A910078CEC7 /* WidgetKit.framework */; };
+		441BBFE62C5F9A910078CEC7 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441BBFE52C5F9A910078CEC7 /* SwiftUI.framework */; };
+		441BBFE92C5F9A910078CEC7 /* HealthGoalsWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441BBFE82C5F9A910078CEC7 /* HealthGoalsWidgetBundle.swift */; };
+		441BBFEB2C5F9A910078CEC7 /* HealthGoalsWidgetControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441BBFEA2C5F9A910078CEC7 /* HealthGoalsWidgetControl.swift */; };
+		441BBFED2C5F9A910078CEC7 /* HealthGoalsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441BBFEC2C5F9A910078CEC7 /* HealthGoalsWidget.swift */; };
+		441BBFEF2C5F9A930078CEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 441BBFEE2C5F9A930078CEC7 /* Assets.xcassets */; };
+		441BBFF32C5F9A930078CEC7 /* HealthGoalsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 441BBFE12C5F9A910078CEC7 /* HealthGoalsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		441BBFF92C5F9B130078CEC7 /* WidgetGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441BBFF82C5F9B130078CEC7 /* WidgetGoalView.swift */; };
+		441BBFFA2C5F9B130078CEC7 /* WidgetGoalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441BBFF82C5F9B130078CEC7 /* WidgetGoalView.swift */; };
+		44CF2E5D2C5FA25400B6BEF8 /* GoalFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 44CF2E5C2C5FA25400B6BEF8 /* GoalFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		44CF2E602C5FA25400B6BEF8 /* GoalFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */; };
+		44CF2E612C5FA25400B6BEF8 /* GoalFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		44CF2E652C5FA29100B6BEF8 /* GoalFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */; };
+		44CF2E662C5FA29100B6BEF8 /* GoalFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		44D0AC0C2C5FA3C50072271B /* GoalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C6BD712C1F4E5C0057911C /* GoalManager.swift */; };
+		44D0AC0D2C5FA3D00072271B /* GoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4D62B814394008E58CC /* GoalData.swift */; };
+		44D0AC0E2C5FA4430072271B /* GoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4D62B814394008E58CC /* GoalData.swift */; };
+		44D0AC0F2C5FA4430072271B /* GoalData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A1F4D62B814394008E58CC /* GoalData.swift */; };
+		44D0AC102C5FA44A0072271B /* GoalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C6BD712C1F4E5C0057911C /* GoalManager.swift */; };
+		44D0AC112C5FA44A0072271B /* GoalManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44C6BD712C1F4E5C0057911C /* GoalManager.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		441BBFF12C5F9A930078CEC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44A1F4B92B813BAB008E58CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 441BBFE02C5F9A910078CEC7;
+			remoteInfo = HealthGoalsWidgetExtension;
+		};
+		44CF2E5E2C5FA25400B6BEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44A1F4B92B813BAB008E58CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44CF2E592C5FA25400B6BEF8;
+			remoteInfo = GoalFramework;
+		};
+		44CF2E672C5FA29100B6BEF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 44A1F4B92B813BAB008E58CC /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 44CF2E592C5FA25400B6BEF8;
+			remoteInfo = GoalFramework;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		441BBFF42C5F9A930078CEC7 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				441BBFF32C5F9A930078CEC7 /* HealthGoalsWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		441BC01A2C5F9B6A0078CEC7 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				44CF2E612C5FA25400B6BEF8 /* GoalFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CF2E692C5FA29100B6BEF8 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				44CF2E662C5FA29100B6BEF8 /* GoalFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		4404BB582C1EE3BB00285CF2 /* Health Goals.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Health Goals.entitlements"; sourceTree = "<group>"; };
+		441BBFE12C5F9A910078CEC7 /* HealthGoalsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = HealthGoalsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		441BBFE32C5F9A910078CEC7 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		441BBFE52C5F9A910078CEC7 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		441BBFE82C5F9A910078CEC7 /* HealthGoalsWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthGoalsWidgetBundle.swift; sourceTree = "<group>"; };
+		441BBFEA2C5F9A910078CEC7 /* HealthGoalsWidgetControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthGoalsWidgetControl.swift; sourceTree = "<group>"; };
+		441BBFEC2C5F9A910078CEC7 /* HealthGoalsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthGoalsWidget.swift; sourceTree = "<group>"; };
+		441BBFEE2C5F9A930078CEC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		441BBFF02C5F9A930078CEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		441BBFF82C5F9B130078CEC7 /* WidgetGoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetGoalView.swift; sourceTree = "<group>"; };
 		44A1F4C12B813BAB008E58CC /* Health Goals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Health Goals.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		44A1F4C42B813BAB008E58CC /* AppEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntry.swift; sourceTree = "<group>"; };
-		44A1F4CA2B813BAD008E58CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		44A1F4CD2B813BAD008E58CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		44A1F4D62B814394008E58CC /* GoalData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalData.swift; sourceTree = "<group>"; };
-		44A1F4DA2B815D8E008E58CC /* Homepage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Homepage.swift; sourceTree = "<group>"; };
-		44A1F4DC2B816887008E58CC /* EmptyMyGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyMyGoalsView.swift; sourceTree = "<group>"; };
-		44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyGoalsView.swift; sourceTree = "<group>"; };
-		44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewGoal.swift; sourceTree = "<group>"; };
-		44BDEC1C2BC15C180033542B /* GoalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalView.swift; sourceTree = "<group>"; };
-		44C6BD6F2C1F3F100057911C /* GroupedGoalsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedGoalsView.swift; sourceTree = "<group>"; };
-		44E5670E2B83D85900CC4B86 /* UserGoal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserGoal.swift; sourceTree = "<group>"; };
+		44C6BD712C1F4E5C0057911C /* GoalManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalManager.swift; sourceTree = "<group>"; };
+		44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GoalFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44CF2E5C2C5FA25400B6BEF8 /* GoalFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GoalFramework.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		44D0AC472C5FD90C0072271B /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AppEntry.swift,
+				Assets.xcassets,
+				Components/GoalView.swift,
+				CreateNewGoal/CreateNewGoal.swift,
+				GoalDetailView/SwiftUIView.swift,
+				Homepage/EmptyMyGoalsView.swift,
+				Homepage/GroupedGoalsView.swift,
+				Homepage/Homepage.swift,
+				Homepage/MyGoalsView.swift,
+				"Preview Content/Preview Assets.xcassets",
+			);
+			target = 44A1F4C02B813BAB008E58CC /* Health Goals */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		44D0AC3D2C5FD90C0072271B /* Health Goals */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (44D0AC472C5FD90C0072271B /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Health Goals"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		441BBFDE2C5F9A910078CEC7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441BBFE62C5F9A910078CEC7 /* SwiftUI.framework in Frameworks */,
+				441BBFE42C5F9A910078CEC7 /* WidgetKit.framework in Frameworks */,
+				44CF2E652C5FA29100B6BEF8 /* GoalFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44A1F4BE2B813BAB008E58CC /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CF2E602C5FA25400B6BEF8 /* GoalFramework.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CF2E572C5FA25400B6BEF8 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -47,10 +158,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		441BBFE22C5F9A910078CEC7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				441BBFE32C5F9A910078CEC7 /* WidgetKit.framework */,
+				441BBFE52C5F9A910078CEC7 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		441BBFE72C5F9A910078CEC7 /* HealthGoalsWidget */ = {
+			isa = PBXGroup;
+			children = (
+				441BBFE82C5F9A910078CEC7 /* HealthGoalsWidgetBundle.swift */,
+				441BBFEA2C5F9A910078CEC7 /* HealthGoalsWidgetControl.swift */,
+				441BBFEC2C5F9A910078CEC7 /* HealthGoalsWidget.swift */,
+				441BBFEE2C5F9A930078CEC7 /* Assets.xcassets */,
+				441BBFF02C5F9A930078CEC7 /* Info.plist */,
+				441BBFF82C5F9B130078CEC7 /* WidgetGoalView.swift */,
+			);
+			path = HealthGoalsWidget;
+			sourceTree = "<group>";
+		};
 		44A1F4B82B813BAB008E58CC = {
 			isa = PBXGroup;
 			children = (
-				44A1F4C32B813BAB008E58CC /* Health Goals */,
+				44D0AC3D2C5FD90C0072271B /* Health Goals */,
+				441BBFE72C5F9A910078CEC7 /* HealthGoalsWidget */,
+				44CF2E5B2C5FA25400B6BEF8 /* GoalFramework */,
+				441BBFE22C5F9A910078CEC7 /* Frameworks */,
 				44A1F4C22B813BAB008E58CC /* Products */,
 			);
 			sourceTree = "<group>";
@@ -59,64 +195,55 @@
 			isa = PBXGroup;
 			children = (
 				44A1F4C12B813BAB008E58CC /* Health Goals.app */,
+				441BBFE12C5F9A910078CEC7 /* HealthGoalsWidgetExtension.appex */,
+				44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		44A1F4C32B813BAB008E58CC /* Health Goals */ = {
+		44CF2E5B2C5FA25400B6BEF8 /* GoalFramework */ = {
 			isa = PBXGroup;
 			children = (
-				4404BB582C1EE3BB00285CF2 /* Health Goals.entitlements */,
-				44BDEC1B2BC15BEA0033542B /* Components */,
-				44A1F4D52B813C9A008E58CC /* CreateNewGoal */,
-				44A1F4D42B813C86008E58CC /* Homepage */,
-				44A1F4C42B813BAB008E58CC /* AppEntry.swift */,
+				44C6BD712C1F4E5C0057911C /* GoalManager.swift */,
 				44A1F4D62B814394008E58CC /* GoalData.swift */,
-				44E5670E2B83D85900CC4B86 /* UserGoal.swift */,
-				44A1F4CA2B813BAD008E58CC /* Assets.xcassets */,
-				44A1F4CC2B813BAD008E58CC /* Preview Content */,
+				44CF2E5C2C5FA25400B6BEF8 /* GoalFramework.h */,
 			);
-			path = "Health Goals";
-			sourceTree = "<group>";
-		};
-		44A1F4CC2B813BAD008E58CC /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				44A1F4CD2B813BAD008E58CC /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		44A1F4D42B813C86008E58CC /* Homepage */ = {
-			isa = PBXGroup;
-			children = (
-				44A1F4DA2B815D8E008E58CC /* Homepage.swift */,
-				44A1F4DC2B816887008E58CC /* EmptyMyGoalsView.swift */,
-				44A1F4DE2B81696B008E58CC /* MyGoalsView.swift */,
-				44C6BD6F2C1F3F100057911C /* GroupedGoalsView.swift */,
-			);
-			path = Homepage;
-			sourceTree = "<group>";
-		};
-		44A1F4D52B813C9A008E58CC /* CreateNewGoal */ = {
-			isa = PBXGroup;
-			children = (
-				44A1F4E02B8169DF008E58CC /* CreateNewGoal.swift */,
-			);
-			path = CreateNewGoal;
-			sourceTree = "<group>";
-		};
-		44BDEC1B2BC15BEA0033542B /* Components */ = {
-			isa = PBXGroup;
-			children = (
-				44BDEC1C2BC15C180033542B /* GoalView.swift */,
-			);
-			path = Components;
+			path = GoalFramework;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		44CF2E552C5FA25400B6BEF8 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44CF2E5D2C5FA25400B6BEF8 /* GoalFramework.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		441BBFE02C5F9A910078CEC7 /* HealthGoalsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 441BBFF72C5F9A930078CEC7 /* Build configuration list for PBXNativeTarget "HealthGoalsWidgetExtension" */;
+			buildPhases = (
+				441BBFDD2C5F9A910078CEC7 /* Sources */,
+				441BBFDE2C5F9A910078CEC7 /* Frameworks */,
+				441BBFDF2C5F9A910078CEC7 /* Resources */,
+				44CF2E692C5FA29100B6BEF8 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				44CF2E682C5FA29100B6BEF8 /* PBXTargetDependency */,
+			);
+			name = HealthGoalsWidgetExtension;
+			productName = HealthGoalsWidgetExtension;
+			productReference = 441BBFE12C5F9A910078CEC7 /* HealthGoalsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		44A1F4C02B813BAB008E58CC /* Health Goals */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 44A1F4D12B813BAD008E58CC /* Build configuration list for PBXNativeTarget "Health Goals" */;
@@ -124,15 +251,37 @@
 				44A1F4BD2B813BAB008E58CC /* Sources */,
 				44A1F4BE2B813BAB008E58CC /* Frameworks */,
 				44A1F4BF2B813BAB008E58CC /* Resources */,
+				441BBFF42C5F9A930078CEC7 /* Embed Foundation Extensions */,
+				441BC01A2C5F9B6A0078CEC7 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				441BBFF22C5F9A930078CEC7 /* PBXTargetDependency */,
+				44CF2E5F2C5FA25400B6BEF8 /* PBXTargetDependency */,
 			);
 			name = "Health Goals";
 			productName = "Health Goals";
 			productReference = 44A1F4C12B813BAB008E58CC /* Health Goals.app */;
 			productType = "com.apple.product-type.application";
+		};
+		44CF2E592C5FA25400B6BEF8 /* GoalFramework */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44CF2E622C5FA25400B6BEF8 /* Build configuration list for PBXNativeTarget "GoalFramework" */;
+			buildPhases = (
+				44CF2E552C5FA25400B6BEF8 /* Headers */,
+				44CF2E562C5FA25400B6BEF8 /* Sources */,
+				44CF2E572C5FA25400B6BEF8 /* Frameworks */,
+				44CF2E582C5FA25400B6BEF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GoalFramework;
+			productName = GoalFramework;
+			productReference = 44CF2E5A2C5FA25400B6BEF8 /* GoalFramework.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
@@ -141,11 +290,17 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1520;
-				LastUpgradeCheck = 1520;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
 				TargetAttributes = {
+					441BBFE02C5F9A910078CEC7 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 					44A1F4C02B813BAB008E58CC = {
 						CreatedOnToolsVersion = 15.2;
+					};
+					44CF2E592C5FA25400B6BEF8 = {
+						CreatedOnToolsVersion = 16.0;
 					};
 				};
 			};
@@ -163,42 +318,149 @@
 			projectRoot = "";
 			targets = (
 				44A1F4C02B813BAB008E58CC /* Health Goals */,
+				441BBFE02C5F9A910078CEC7 /* HealthGoalsWidgetExtension */,
+				44CF2E592C5FA25400B6BEF8 /* GoalFramework */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		441BBFDF2C5F9A910078CEC7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441BBFEF2C5F9A930078CEC7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44A1F4BF2B813BAB008E58CC /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44A1F4CE2B813BAD008E58CC /* Preview Assets.xcassets in Resources */,
-				44A1F4CB2B813BAD008E58CC /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CF2E582C5FA25400B6BEF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		441BBFDD2C5F9A910078CEC7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441BBFED2C5F9A910078CEC7 /* HealthGoalsWidget.swift in Sources */,
+				441BBFF92C5F9B130078CEC7 /* WidgetGoalView.swift in Sources */,
+				441BBFEB2C5F9A910078CEC7 /* HealthGoalsWidgetControl.swift in Sources */,
+				44D0AC0F2C5FA4430072271B /* GoalData.swift in Sources */,
+				44D0AC112C5FA44A0072271B /* GoalManager.swift in Sources */,
+				441BBFE92C5F9A910078CEC7 /* HealthGoalsWidgetBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		44A1F4BD2B813BAB008E58CC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44A1F4D72B814394008E58CC /* GoalData.swift in Sources */,
-				44E5670F2B83D85900CC4B86 /* UserGoal.swift in Sources */,
-				44A1F4DF2B81696B008E58CC /* MyGoalsView.swift in Sources */,
-				44A1F4E12B8169DF008E58CC /* CreateNewGoal.swift in Sources */,
-				44A1F4C52B813BAB008E58CC /* AppEntry.swift in Sources */,
-				44C6BD702C1F3F100057911C /* GroupedGoalsView.swift in Sources */,
-				44A1F4DB2B815D8E008E58CC /* Homepage.swift in Sources */,
-				44A1F4DD2B816887008E58CC /* EmptyMyGoalsView.swift in Sources */,
-				44BDEC1D2BC15C180033542B /* GoalView.swift in Sources */,
+				44D0AC0E2C5FA4430072271B /* GoalData.swift in Sources */,
+				441BBFFA2C5F9B130078CEC7 /* WidgetGoalView.swift in Sources */,
+				44D0AC102C5FA44A0072271B /* GoalManager.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44CF2E562C5FA25400B6BEF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44D0AC0D2C5FA3D00072271B /* GoalData.swift in Sources */,
+				44D0AC0C2C5FA3C50072271B /* GoalManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		441BBFF22C5F9A930078CEC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 441BBFE02C5F9A910078CEC7 /* HealthGoalsWidgetExtension */;
+			targetProxy = 441BBFF12C5F9A930078CEC7 /* PBXContainerItemProxy */;
+		};
+		44CF2E5F2C5FA25400B6BEF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44CF2E592C5FA25400B6BEF8 /* GoalFramework */;
+			targetProxy = 44CF2E5E2C5FA25400B6BEF8 /* PBXContainerItemProxy */;
+		};
+		44CF2E682C5FA29100B6BEF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 44CF2E592C5FA25400B6BEF8 /* GoalFramework */;
+			targetProxy = 44CF2E672C5FA29100B6BEF8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		441BBFF52C5F9A930078CEC7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3PXN4U4LS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HealthGoalsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HealthGoalsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "kochashvili.Health-Goals.HealthGoalsWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		441BBFF62C5F9A930078CEC7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P3PXN4U4LS;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = HealthGoalsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = HealthGoalsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				NEW_SETTING = "";
+				PRODUCT_BUNDLE_IDENTIFIER = "kochashvili.Health-Goals.HealthGoalsWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		44A1F4CF2B813BAD008E58CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -386,9 +648,90 @@
 			};
 			name = Release;
 		};
+		44CF2E632C5FA25400B6BEF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P3PXN4U4LS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = kochashvili.GoalFramework;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		44CF2E642C5FA25400B6BEF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = P3PXN4U4LS;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				PRODUCT_BUNDLE_IDENTIFIER = kochashvili.GoalFramework;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		441BBFF72C5F9A930078CEC7 /* Build configuration list for PBXNativeTarget "HealthGoalsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				441BBFF52C5F9A930078CEC7 /* Debug */,
+				441BBFF62C5F9A930078CEC7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		44A1F4BC2B813BAB008E58CC /* Build configuration list for PBXProject "Health Goals" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -403,6 +746,15 @@
 			buildConfigurations = (
 				44A1F4D22B813BAD008E58CC /* Debug */,
 				44A1F4D32B813BAD008E58CC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44CF2E622C5FA25400B6BEF8 /* Build configuration list for PBXNativeTarget "GoalFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44CF2E632C5FA25400B6BEF8 /* Debug */,
+				44CF2E642C5FA25400B6BEF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
